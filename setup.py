@@ -5,8 +5,8 @@ import setuptools
 
 python_version = sys.version[:3]
 
-with open('requirements_python' + python_version + '.txt') as f:
-        required_packages = [line.strip() for line in f.readlines()]
+#with open('requirements_python' + python_version + '.txt') as f:
+#        required_packages = [line.strip() for line in f.readlines()]
 
 print(setuptools.find_packages())
 setuptools.setup(name='SynthSeg',

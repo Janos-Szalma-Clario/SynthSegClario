@@ -87,10 +87,6 @@ def load_volume(path_volume, im_only=True, squeeze=True, dtype=None, aff_ref=Non
     :return: the volume, with corresponding affine matrix and header if im_only is False.
     """
     assert path_volume.endswith(('.nii', '.nii.gz', '.mgz', '.npz')), 'Unknown data file: %s' % path_volume
-    if dtype == 'int':
-        dtype = 'int32'
-    if dtype == 'float':
-        dtype = 'float64'
     if path_volume.endswith(('.nii', '.nii.gz', '.mgz')):
         x = nib.load(path_volume)
         if squeeze:
@@ -135,10 +131,6 @@ def save_volume(volume, aff, header, path, res=None, dtype=None, n_dims=3):
     :param n_dims: (optional) number of dimensions, to avoid confusion in multi-channel case. Default is None, where
     n_dims is automatically inferred.
     """
-    if dtype == 'int':
-        dtype = 'int32'
-    if dtype == 'float':
-        dtype = 'float64'
     mkdir(os.path.dirname(path))
     if '.npz' in path:
         np.savez_compressed(path, vol_data=volume)
@@ -335,14 +327,10 @@ def reformat_to_list(var, length=None, load_as_numpy=False, dtype=None):
     """
 
     # convert to list
-    if dtype == 'int':
-        dtype = 'int32'
-    if dtype == 'float':
-        dtype = 'float64'
     if var is None:
         return None
     var = load_array_if_path(var, load_as_numpy=load_as_numpy)
-    if isinstance(var, (int, float, np.int, np.int32, np.int64, np.float, np.float32, np.float64)):
+    if isinstance(var, (int, float, np.int32, np.int64, np.float, np.float32, np.float64)):
         var = [var]
     elif isinstance(var, tuple):
         var = list(var)
